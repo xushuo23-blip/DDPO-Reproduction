@@ -381,7 +381,7 @@ def main(_):
         ):
             rewards, reward_metadata = sample["rewards"].result()
             # accelerator.print(reward_metadata)
-            sample["rewards"] = torch.as_tensor(rewards, device=accelerator.device)
+            sample["rewards"] = torch.as_tensor(rewards, device=accelerator.device,dtype=torch.float32)
 
         # collate samples into dict where each entry has shape (num_batches_per_epoch * sample.batch_size, ...)
         samples = {k: torch.cat([s[k] for s in samples]) for k in samples[0].keys()}

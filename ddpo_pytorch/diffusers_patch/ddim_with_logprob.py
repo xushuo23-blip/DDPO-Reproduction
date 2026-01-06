@@ -179,6 +179,7 @@ def ddim_step_with_logprob(
             dtype=model_output.dtype,
         )
         prev_sample = prev_sample_mean + std_dev_t * variance_noise
+    #############这里没有加eta，理论上依照DDIM需要乘上eta，但这个实验默认eta为1了
 
     # log prob of prev_sample given prev_sample_mean and std_dev_t
     log_prob = (
