@@ -303,6 +303,3 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,intellij+all,vim
 
-wandb/
-logs/
-notebooks/
