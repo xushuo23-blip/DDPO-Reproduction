@@ -36,10 +36,15 @@ class AestheticScorer(torch.nn.Module):
         self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-large-patch14")
         self.mlp = MLP()
         state_dict = torch.load(
-            ASSETS_PATH.joinpath("sac+logos+ava1-l14-linearMSE.pth")
+            ASSETS_PATH.joinpath("sac+logos+ava1-l14-linearMSE.pth"),map_location=torch.device('cpu')
         )
         self.mlp.load_state_dict(state_dict)
         self.dtype = dtype
+        
+        # 自动识别并移动到 MPS 或 CPU
+        device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+        self.to(device)
+        
         self.eval()
 
     @torch.no_grad()

@@ -32,7 +32,8 @@ def jpeg_compressibility():
 def aesthetic_score():
     from ddpo_pytorch.aesthetic_scorer import AestheticScorer
 
-    scorer = AestheticScorer(dtype=torch.float32).cuda()
+    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    scorer = AestheticScorer(dtype=torch.float32).to(device)
 
     def _fn(images, prompts, metadata):
         if isinstance(images, torch.Tensor):
